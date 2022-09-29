@@ -7,9 +7,9 @@ models:
       project: ethereum_name_service
       contributors: mewwts, antonio-mendes
     config:
-      tags: ['ethereum','ens','ethereum_name_service','ethereumnameservice']
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
     description: >
-        View expirations of ENS registrations
+      View expirations of ENS registrations
     columns:
       - &label
         name: label
@@ -31,9 +31,9 @@ models:
       project: ethereum_name_service
       contributors: mewwts, antonio-mendes
     config:
-      tags: ['ethereum','ens','ethereum_name_service','ethereumnameservice']
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
     description: >
-        View ENS registrations
+      View ENS registrations
     columns:
       - *label
       - &name
@@ -69,9 +69,9 @@ models:
       project: ethereum_name_service
       contributors: mewwts, antonio-mendes
     config:
-      tags: ['ethereum','ens','ethereum_name_service','ethereumnameservice']
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
     description: >
-        View ENS renewals
+      View ENS renewals
     columns:
       - *name
       - *label
@@ -89,9 +89,9 @@ models:
       project: ethereum_name_service
       contributors: mewwts, antonio-mendes
     config:
-      tags: ['ethereum','ens','ethereum_name_service','ethereumnameservice']
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
     description: >
-        View ENS registry
+      View ENS registry
     columns:
       - *label
       - name: node
@@ -99,7 +99,7 @@ models:
       - name: min_evt_block_time
         description: "Block time UTC of first registry for node"
       - name: max_evt_block_time
-        description: "Block time UTC of latest registry for node" 
+        description: "Block time UTC of latest registry for node"
       - name: count
         description: "Total number of node registries"
 
@@ -109,9 +109,9 @@ models:
       project: ethereum_name_service
       contributors: hildobby, danning.sui, msilb7, danner_eth
     config:
-      tags: ['ethereum','ens','ethereum_name_service','ethereumnameservice']
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
     description: >
-        View ENS reverse record
+      View ENS reverse record
     columns:
       - name: address
         description: "The resolver address of that ENS name"
@@ -121,3 +121,52 @@ models:
         description: "Latest transaction hash"
       - name: latest_tx_block_time
         description: "Block time of the latest transaction hash"
+
+  - name: ens_resolvers
+    meta:
+      blockchain: ethereum
+      project: ethereum_name_service
+      contributors: makoto
+    config:
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
+    description: >
+      Includes all resolver addresses set to each ENS name
+    columns:
+      - name: node
+        description: "ENS name in namehash"
+      - name: resolver
+        description: "Resolver address"
+
+  - name: ens_addresses
+    meta:
+      blockchain: ethereum
+      project: ethereum_name_service
+      contributors: makoto
+    config:
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
+    description: >
+      Includes all ETH addresses set to each ENS name
+    columns:
+      - name: resolver
+        description: "Resolver address"
+      - name: node
+        description: "ENS name in namehash"
+      - name: address
+        description: "Address record set for the node"
+
+  - name: ens_names
+    meta:
+      blockchain: ethereum
+      project: ethereum_name_service
+      contributors: makoto
+    config:
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
+    description: >
+      Includes all ETH addresses set to each ENS name
+    columns:
+      - name: resolver
+        description: "Resolver address"
+      - name: node
+        description: "ENS name in namehash"
+      - name: name
+        description: "ENS name in plain text"
