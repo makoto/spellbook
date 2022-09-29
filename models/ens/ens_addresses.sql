@@ -23,7 +23,8 @@ FROM (
       block_number DESC,
       index DESC) AS seqno
   FROM
-    ethereum.logs
+    {{source('ethereum', 'logs')}} logs
+    -- ethereum.logs
   WHERE
     -- AddrChanged (index_topic_1 bytes32 node, address a) event
     topic1 = "0x52d7d861f09ab3d26239d492e8968629f95e9e318cf0b73bfddc441522a15fd2"

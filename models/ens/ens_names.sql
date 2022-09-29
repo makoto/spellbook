@@ -28,9 +28,10 @@ FROM (
       tx_hash,
       index
     FROM
-      ethereum.logs
+    --   ethereum.logs
+        {{source('ethereum', 'logs')}} logs
     WHERE
-      -- NameChanged (index_topic_1 bytes32 _node, string _name)
+      -- NameChanged (index_topic_1 bytes32 _node, string _name) event
       topic1 = "0xb7d29e911041e8d9b843369e890bcb72c9388692ba48b65ac54e7214c4c348f7"
     UNION ALL
     SELECT 
@@ -40,7 +41,8 @@ FROM (
         call_block_number as block_number,
         call_tx_hash as tx_hash,
         0 as index
-    FROM ethereumnameservice_ethereum.DefaultReverseResolver_call_setName AS trace_names
+    -- FROM ethereumnameservice_ethereum.DefaultReverseResolver_call_setName as trace_names
+    FROM {{source('ethereumnameservice_ethereum', 'DefaultReverseResolver_call_setName')}} trace_names
     WHERE
       node IS NOT NULL
       AND _name IS NOT NULL 

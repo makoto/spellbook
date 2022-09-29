@@ -30,8 +30,8 @@ FROM (
       evt_index as index,
       evt_tx_hash as tx_hash,
       0 AS deployment
-    FROM
-      ethereumnameservice_ethereum.ENSRegistry_evt_NewResolver as a
+    -- FROM ethereumnameservice_ethereum.ENSRegistry_evt_NewResolver as a
+    FROM {{source('ethereumnameservice_ethereum', 'ENSRegistry_evt_NewResolver')}} a
     UNION ALL
     SELECT
       node,
@@ -40,8 +40,8 @@ FROM (
       evt_index as index,
       evt_tx_hash as tx_hash,
       1 AS deployment
-    FROM
-      ethereumnameservice_ethereum.ENSRegistryWithFallback_evt_NewResolver as b
+    -- FROM ethereumnameservice_ethereum.ENSRegistryWithFallback_evt_NewResolver as b
+      FROM {{source('ethereumnameservice_ethereum', 'ENSRegistryWithFallback_evt_NewResolver')}} b
   )
   ORDER BY node
 ) WHERE seqno = 1 
