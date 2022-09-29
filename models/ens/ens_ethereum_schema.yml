@@ -136,6 +136,10 @@ models:
         description: "ENS name in namehash"
       - name: resolver
         description: "Resolver address"
+      - name: tx_hash
+        description: "Transaction hash"
+      - name: index
+        description: "index of transaction within the block"
 
   - name: ens_addresses
     meta:
@@ -153,6 +157,10 @@ models:
         description: "ENS name in namehash"
       - name: address
         description: "Address record set for the node"
+      - name: tx_hash
+        description: "Transaction hash"
+      - name: index
+        description: "index of transaction within the block"
 
   - name: ens_names
     meta:
@@ -166,7 +174,26 @@ models:
     columns:
       - name: resolver
         description: "Resolver address"
+      - name: reverse_node
+        description: "the node of the owner address in keccak(address).addr.reverse format"
+      - name: name
+        description: "Primary ENS name in plain text"
+      - name: tx_hash
+        description: "Transaction hash"
+      - name: index
+        description: "index of transaction within the block"
+
+  - name: ens_resolved_addresses
+    meta:
+      blockchain: ethereum
+      project: ethereum_name_service
+      contributors: makoto
+    config:
+      tags: ["ethereum", "ens", "ethereum_name_service", "ethereumnameservice"]
+    description: >
+      Includes resolved addresses
+    columns:
       - name: node
         description: "ENS name in namehash"
-      - name: name
+      - name: address
         description: "ENS name in plain text"

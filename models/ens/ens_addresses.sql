@@ -7,11 +7,14 @@
 SELECT
   resolver,
   node,
-  addr as address
+  addr as address,
+  tx_hash,
+  index
 FROM (
   SELECT
     contract_address AS resolver,
     tx_hash,
+    index,
     topic1,
     topic2 as node,
     CONCAT("0x", SUBSTR(data, 27)) AS addr,
@@ -22,6 +25,7 @@ FROM (
   FROM
     ethereum.logs
   WHERE
+    -- AddrChanged (index_topic_1 bytes32 node, address a) event
     topic1 = "0x52d7d861f09ab3d26239d492e8968629f95e9e318cf0b73bfddc441522a15fd2"
 ) as addrs
 WHERE

@@ -4,21 +4,31 @@
                                     "ens",
                                     \'["makoto"]\') }}')}}
 
-SELECT * FROM (
+SELECT 
+  node,
+  resolver,
+  tx_hash,
+  index
+FROM (
 SELECT
   node,
-  resolver
+  resolver,
+  tx_hash,
+  index
 FROM (
   SELECT
     node,
     resolver,
-    ROW_NUMBER() OVER (PARTITION BY node ORDER BY deployment DESC, block_number DESC, log_index DESC) AS seqno
+    tx_hash,
+    index,
+    ROW_NUMBER() OVER (PARTITION BY node ORDER BY deployment DESC, block_number DESC, index DESC) AS seqno
   FROM (
     SELECT
       node,
       resolver,
       evt_block_number as block_number,
-      evt_index as log_index,
+      evt_index as index,
+      evt_tx_hash as tx_hash,
       0 AS deployment
     FROM
       ethereumnameservice_ethereum.ENSRegistry_evt_NewResolver as a
@@ -27,7 +37,8 @@ FROM (
       node,
       resolver,
       evt_block_number as block_number,
-      evt_index as log_index,
+      evt_index as index,
+      evt_tx_hash as tx_hash,
       1 AS deployment
     FROM
       ethereumnameservice_ethereum.ENSRegistryWithFallback_evt_NewResolver as b
